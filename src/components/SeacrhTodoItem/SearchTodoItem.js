@@ -1,5 +1,8 @@
 import React, {PureComponent} from 'react';
-import {item as itemApi} from '../../api/todos';
+import {
+	item as itemApi,
+	list as listApi,
+} from '../../api/todos';
 
 export default class SearchTodoItem extends PureComponent {
 	constructor() {
@@ -7,15 +10,24 @@ export default class SearchTodoItem extends PureComponent {
 
 		this.state = {
 			id: null,
+			data: null,
 		};
+
+		this.onHandleSubmit = this.onHandleSubmit.bind(this);
 	};
 
-	onHandleSubmit = event => {
+	async componentDidMount() {
+		const result = await listApi();
+		this.setState({data: result});
+	};
+
+	async onHandleSubmit (event) {
 		event.preventDefault();
-		itemApi(this.state.id);
+		const result = await itemApi(this.state.id);
+		this.setState({data: result});
 	};
 
-	onHadleChange = event => {
+	onHandleChange = event => {
 		const value = event.target.value;
 		const newState = {
 			...this.state,
@@ -25,12 +37,15 @@ export default class SearchTodoItem extends PureComponent {
 	};
 
 	render() {
+		const {data} = this.state;
+		data && data.message ? console.log(data.message) : console.log(data);
+
 		return (
 			<form onSubmit={this.onHandleSubmit}>
 				<input
 					type='text'
 					name='searchTodo'
-					onChange={this.onHadleChange}
+					onChange={this.onHandleChange}
 				/>
 				<button type='submit'>Найти</button>
 			</form>

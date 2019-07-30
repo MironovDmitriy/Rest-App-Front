@@ -1,1 +1,1 @@
-export const localUrl = 'http://192.168.51.165';
+export const serviceAddress = 'http://localhost:8090';

@@ -1,39 +1,42 @@
 import fetch from 'isomorphic-fetch';
+import {serviceAddress} from '../constants/paths/paths.js';
 
 	const defaultOptions = {
 		credentials: 'include',
 		returnType: 'json',
-	}
+	};
 
 export default async (endpoint, addOptions = {}) => {
 	const options = {
 		...defaultOptions,
 		...addOptions,
-	}
+	};
 
 	if (!options.headers) {
 		options.headers = {}
 	}
 
-	let url = endpoint;
+	let url = `${serviceAddress}${endpoint}`;
 
 	if (options.qs) {
 		const query = Object.keys(options.qs)
 			.map(k => `${encodeURIComponent(k)}=${encodeURIComponent(options.qs[k])}`)
-			.join('&')
-		url += `?${query}`
+			.join('&');
+		url += `?${query}`;
 	}
 
-	let response = await fetch(url, options);
+	if (addOptions.json && typeof addOptions.json === 'object') {
+		options.body = JSON.stringify(addOptions.json);
+		delete options.json;
 
-	// if (!response.ok) {
-	// 	const error = response;
-	// 	const status = response.status;
-	// 	const message = 'Что то пошло не так';
+		options.headers['Content-Type']= 'application/json'
+	}
 
-	// 	throw new HttpError(status, message);
-	// }
-
-	let result = response.json();
-	return result;
+	try {
+		const response = await fetch(url, options);
+		const data = await response.json();
+		return data;
+	} catch (err) {
+		throw new Error(err);
+	}
 };
