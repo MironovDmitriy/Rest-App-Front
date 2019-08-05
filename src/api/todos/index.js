@@ -4,6 +4,7 @@ import {
 	create,
 	update,
 	remove,
+	listTable,
 } from './todos.js';
 
 export {
@@ -12,4 +13,5 @@ export {
 	create,
 	update,
 	remove,
+	listTable,
 }

@@ -18,7 +18,7 @@ export default class RemoveTodoItem extends PureComponent {
     async onHandleSubmit (event) {
         event.preventDefault();
         const result = await removeApi(this.state.id);
-        this.setState({data: result});
+        this.setState({tableConfig: result});
     };
 
     onHandleChange = event => {

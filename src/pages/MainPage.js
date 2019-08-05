@@ -3,6 +3,7 @@ import SearchTodoItem from '../components/SeacrhTodoItem';
 import AddTodoItem from '../components/AddTodoItem';
 import UpdateTodoItem from '../components/UpdateTodoItem';
 import RemoveTodoItem from '../components/RemoveTodoItem';
+import TodoList from "../components/TodoList/TodoList";
 
 export default class MainPage extends PureComponent {
 	render() {
@@ -15,6 +16,8 @@ export default class MainPage extends PureComponent {
 				<UpdateTodoItem />
 				<br />
 				<RemoveTodoItem />
+				<br />
+				<TodoList />
 			</Fragment>
 		)
 	};

@@ -25,7 +25,7 @@ export default class AddTodoItem extends PureComponent {
 	};
 
 	render() {
-		console.log(this.state.todoTitle);
+
 		return (
 			<form onSubmit={this.onHandleSubmit}>
 				<input

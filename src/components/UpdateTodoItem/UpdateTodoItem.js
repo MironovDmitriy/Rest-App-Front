@@ -28,7 +28,6 @@ export default class UpdateTodoItem extends PureComponent {
 	};
 
 	render() {
-		console.log(this.state);
 		return (
 			<form onSubmit={this.onHandleSubmit}>
 				<input

@@ -8,6 +8,20 @@ export const list = async () => {
 	return result;
 };
 
+export const listTable = async data => {
+	const result = await apiRequest(`/table`, {
+		method: 'POST',
+		json: {
+			current: data.current,
+			rowCount: data.rowCount,
+			filters: data.filters,
+			sorts: data.sorts,
+		}},
+	);
+
+	return result;
+};
+
 export const item = async id => {
 	const result = await apiRequest(`/${id}`, {
 		method: 'GET',
